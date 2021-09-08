@@ -3,10 +3,26 @@
 
 import BarraLateral from '../../components/left-barcomponent';
 import Cabecalho from '../../components/headercomponent'
-import Inputs from '../../components/inputcomponent'
+import { ComponentInput } from '../../components/inputcomponent/styled';
 import { Home } from './styled';
+import { useState } from 'react';
+import Api from '../../service/api';
+
+const api = new Api();
+
 
 export default function HomePage() {
+    const [nomeAluno, setNomeAluno] = useState('');
+    const [numeroChamada, setNumeroChamada] = useState('');
+    const [curso, setCurso] = useState('');
+    const [turma, setTurma] = useState('');
+
+    const cadastrarAluno = async (nomeAluno, numeroChamada, curso, turma) => {
+        
+        let oi = await api.cadastrarAluno(nomeAluno, numeroChamada, curso, turma);
+        alert("ALuno cadastrado com sucesso");
+    }
+
     return (
         <Home>
             <BarraLateral />
@@ -22,23 +38,23 @@ export default function HomePage() {
                         <div class="input-group">
                        <div class="sub-input-group">
                             <div class="input-item">
-                                Nome: <Inputs />
+                                    Nome: <ComponentInput value={nomeAluno}  onChange={e => setNomeAluno(e.target.value)}/>
                             </div>
                             <div class="input-item">
-                                Chamada: <Inputs /> 
+                                Chamada: <ComponentInput value={numeroChamada} onChange={e => setNumeroChamada(e.target.value)} /> 
                             </div>
                        </div>
 
                        <div class="sub-input-group"> 
                             <div class="input-item">
-                                Curso: <Inputs /> 
+                                Curso: <ComponentInput  value={curso} onChange={e => setCurso(e.target.value)}/> 
                             </div>
                             <div class="input-item">
-                                Turma: <Inputs /> 
+                                Turma: <ComponentInput  value={turma} onChange={e => setTurma(e.target.value)}/> 
                             </div>
                        </div>
                        
-                       <button>Cadastrar</button>
+                       <button onClick={cadastrarAluno}>Cadastrar</button>
                             
                     </div>
                     </div>

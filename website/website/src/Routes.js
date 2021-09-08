@@ -2,7 +2,7 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
 
 
-import Home from './pages/home'
+import Home from './pages/home/homeIndex'
 
 export default function Roteamento() {
     return (
