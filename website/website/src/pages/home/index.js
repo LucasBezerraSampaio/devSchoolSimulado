@@ -1,84 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-    </style>
 
-    <title>Simulado Full Stack</title>
-</head>
-<body>
-    <div class="containerSite">
-        <div class="left-box">
-            <header class="header-left-box">
-                <div class="svg-cabecalho-left-box"> <img src="/html-css-puro/assets/svgs/Group107.svg" /></div>
-                <div class="devSchool"> <span>Dev</span> School</div>
-            </header>
-            <div class="black-box"></div>
-            <div class="left-box-management">
-                <div> Gerenciamento </div>
-                <img src="/html-css-puro/assets/svgs/SetaBaixo.svg" />
-            </div>
-            <div class="left-box-aluno">
-                <div> Alunos </div>
-            </div> 
 
-            
-        </div>
+import BarraLateral from '../../components/left-barcomponent';
+import Cabecalho from '../../components/headercomponent'
+import Inputs from '../../components/inputcomponent'
+import { Home } from './styled';
 
-        <div class="right-box">
-            <header class="cabecalho-right-box"> 
-                <div class="user-information-group">
-                    <img src="/html-css-puro/assets/images/Bruninho.png" >
-                        <div class="divDentroIMG">3</div>
-                    </img>
-                    <div>Olá, <span>Bruno de Oliveira</span></div>
-                </div>
-                <div class="header-buttons">
-                    <button> <img src="/html-css-puro/assets/svgs/Vector.svg" /></button>
-                    <button> <img src="/html-css-puro/assets/svgs/Group 104.svg" /></button>
-                </div>
-            </header>
-            <div class="bottom-bar-right-header"></div>
-
-            <div class="body-right-box">
-                <div class="box-new-student">
-                   <div class="text-new-student">
-                       <div class="student-bar"></div>
-                       <div class="oie">Novo Aluno</div>
-                   </div>
-
-                    <div class="input-group">
+export default function HomePage() {
+    return (
+        <Home>
+            <BarraLateral />
+            <div class="right-box">
+                <Cabecalho />
+                <div class="bottom-bar-right-header"></div>
+                <div class="body-right-box">
+                    <div class="box-new-student">
+                        <div class="text-new-student">
+                            <div class="student-bar"></div>
+                            <div class="oie">Novo Aluno</div>
+                        </div>
+                        <div class="input-group">
                        <div class="sub-input-group">
                             <div class="input-item">
-                                Nome: <input type="text"> </input>
+                                Nome: <Inputs />
                             </div>
                             <div class="input-item">
-                                Chamada: <input type="text"> </input>
+                                Chamada: <Inputs /> 
                             </div>
                        </div>
 
                        <div class="sub-input-group"> 
-                            <div class="input-item", class="input-2">
-                                Curso: <input type="text"> </input>
+                            <div class="input-item">
+                                Curso: <Inputs /> 
                             </div>
-                            <div class="input-item", class="input-2">
-                                Turma: <input type="text"> </input>
+                            <div class="input-item">
+                                Turma: <Inputs /> 
                             </div>
                        </div>
                        
                        <button>Cadastrar</button>
                             
                     </div>
-                   
-                </div>
-
-                <div class="matriculed-stutents">
+                    </div>
+                    <div class="matriculed-stutents">
                     <div class="text-matriculed-students">
                         <div class="bar-matriculed"></div>
                         <div class="text-matriculed">Alunos Matriculados</div>
@@ -103,8 +67,8 @@
                                 <td> 15 </td>
                                 <td> InfoX </td>
                                 <td > Informática </td>
-                                <td> <button> <img src="/html-css-puro/assets/svgs/editiButton.svg" alt="" /> </button> </td>
-                                <td class = "aa">   <button> <img src="/html-css-puro/assets/svgs/deleteButton.svg" alt="" /> </button> </td>
+                                <td> <button> <img src="/assets/svgs/editiButton.svg" alt="" /> </button> </td>
+                                <td class = "aa">   <button> <img src="/assets/svgs/deleteButton.svg" alt="" /> </button> </td>
                             </tr>
                             <tr class="int">
                                 <td> 1 </td>
@@ -132,13 +96,36 @@
                                 <td > Informática </td>
                                 <td>   </td>
                                 <td>   </td>
-                            </tr>    
+                            </tr>
+                                
+
+                            <tr class="int">
+                                <td> 1 </td>
+                                <td> Fulao da Silva Sauro</td>
+                                <td> 18 </td>
+                                <td> InfoX </td>
+                                <td > Informática </td>
+                                <td>   </td>
+                                <td>   </td>
+                            </tr>
+
+                            <tr class="int">
+                                <td> 1 </td>
+                                <td> Fulao da Silva Sauro</td>
+                                <td> 18 </td>
+                                <td> InfoX </td>
+                                <td > Informática </td>
+                                <td>   </td>
+                                <td>   </td>
+                            </tr>
+                                
+
                         </tbody>
                     </table>
                 </div>
+                </div>
             </div>
-        </div>
-    </div>
-</body>
-</html>
-
+        </Home>
+            
+    )
+}
