@@ -5,10 +5,10 @@ const Home = styled.div`
 
     display: flex;
     flex-direction: row;
-    min-width: 100%;
+    width: 100%;
     min-height: 100%;
 
-    position: absolute;
+   position: absolute;
     
 
     * {
@@ -28,7 +28,8 @@ const Home = styled.div`
         background-color: white;
         
         min-height: 100vh;
-        width: 100%;
+        width: auto;
+        
     
     }
 
@@ -46,9 +47,11 @@ const Home = styled.div`
         background-color: #F5F5F5;
 
         padding: 3em;
-        /**/    
-        /**/height: 100%;
+        width: 100%;  
+        height: 100%;
     }
+
+ 
 
 
     .box-new-student {
@@ -235,6 +238,14 @@ th {
 
 .a {
    width: .1em;
+}
+
+.linha1 {
+    background-color: #F5F5F5;
+}
+
+.linha2 {
+    background-color: white;
 }
 
 

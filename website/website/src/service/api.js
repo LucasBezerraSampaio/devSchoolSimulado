@@ -16,4 +16,19 @@ export default class Api {
         let r = await api.post(`/matricula`, cadastroJson );
         return r.data
     }
+
+    async listarCadastrados() {
+        let listar = await api.get(`/matricula`);
+        return listar.data;
+    }
+
+    async removerAluno(id) {
+        let remover = await api.delete(`/matricula?idMatricula=${id}`);
+        return remover.data;
+    }
+
+    async alterarInfo(id, nome, chamada, curso, turma) {
+        let alterar = await api.put(`/matricula?idMatricula=${id}`, { nome, chamada, curso, turma });
+        return alterar.data;
+    }
 }

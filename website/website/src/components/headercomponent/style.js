@@ -6,6 +6,7 @@ const HeaderRight = styled.div`
     flex-direction: row;
 
     padding: 1em 2.4em;
+    
   
 
     justify-content: space-between;
@@ -17,6 +18,7 @@ const HeaderRight = styled.div`
     align-items: center;
 
     font-family: 'Roboto';
+
     color: #615858;
     font-size: 1em;
     font-weight: 500;

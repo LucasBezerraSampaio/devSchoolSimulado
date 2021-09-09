@@ -5,7 +5,7 @@ import BarraLateral from '../../components/left-barcomponent';
 import Cabecalho from '../../components/headercomponent'
 import { ComponentInput } from '../../components/inputcomponent/styled';
 import { Home } from './styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Api from '../../service/api';
 
 const api = new Api();
@@ -16,11 +16,60 @@ export default function HomePage() {
     const [numeroChamada, setNumeroChamada] = useState('');
     const [curso, setCurso] = useState('');
     const [turma, setTurma] = useState('');
+    const [alterando, setAlterando] = useState(0);
+    const [todosAlunos, setTodosAlunos] = useState([]);
 
-    const cadastrarAluno = async (nomeAluno, numeroChamada, curso, turma) => {
+    const carregarCadastrado = async () => {
+        let i = await api.listarCadastrados();
+        setTodosAlunos(i);
+    }
+
+    const limparVariavel = () => {
+        setAlterando(0);
+        setCurso('');
+        setNomeAluno('');
+        setNumeroChamada('')
+        setTurma('');
+    }
+
+    useEffect(() => {
+        carregarCadastrado();
+    }, [])
+
+    const cadastrarAluno = async () => {
         
-        let oi = await api.cadastrarAluno(nomeAluno, numeroChamada, curso, turma);
-        alert("ALuno cadastrado com sucesso");
+
+        console.log(nomeAluno)
+        console.log(numeroChamada)
+        console.log(turma)
+        console.log(curso)
+
+        if (alterando === 0) {
+            let oi = await api.cadastrarAluno(nomeAluno, numeroChamada, curso, turma);
+            alert("ALuno cadastrado com sucesso");
+        } else {
+           
+            await api.alterarInfo(alterando, nomeAluno, numeroChamada, curso, turma)
+            alert('Aluno alterado');
+        }
+
+        carregarCadastrado();
+
+        limparVariavel(alterando, nomeAluno, numeroChamada, curso, turma)
+    }
+    
+    const remover = async (info)  => {
+        let r = await api.removerAluno(info.id_matricula);
+        alert("Aluno removido com sucesso!")
+        carregarCadastrado();
+    }
+
+    const alterarAluno = async (info) => {
+        setAlterando(info.id_matricula);
+        setNomeAluno(info.nm_aluno);
+        setNumeroChamada(info.nr_chamada);
+        setCurso(info.nm_curso);
+        setTurma(info.nm_turma);
     }
 
     return (
@@ -33,7 +82,7 @@ export default function HomePage() {
                     <div class="box-new-student">
                         <div class="text-new-student">
                             <div class="student-bar"></div>
-                            <div class="oie">Novo Aluno</div>
+                            <div class="oie">{alterando > 0 ? `Alterando ${nomeAluno}` : "Novo Aluno"}</div>
                         </div>
                         <div class="input-group">
                        <div class="sub-input-group">
@@ -54,7 +103,7 @@ export default function HomePage() {
                             </div>
                        </div>
                        
-                       <button onClick={cadastrarAluno}>Cadastrar</button>
+                            <button onClick={cadastrarAluno}>{ alterando > 0 ?"Alterar" :"Cadastrar"}</button>
                             
                     </div>
                     </div>
@@ -70,72 +119,27 @@ export default function HomePage() {
                                 <th > ID </th>
                                 <th> Nome </th>
                                 <th> Chamada </th>
-                                <th> Turma </th>
                                 <th> Curso </th>
+                                <th> Turma </th>
                                 <th class="a"> </th>
                                 <th class="a"> </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr >
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 15 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td> <button> <img src="/assets/svgs/editiButton.svg" alt="" /> </button> </td>
-                                <td class = "aa">   <button> <img src="/assets/svgs/deleteButton.svg" alt="" /> </button> </td>
-                            </tr>
-                            <tr class="int">
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 16 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td class="td-button">   </td>
-                                <td>   </td>
-                            </tr>
-                            <tr>
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 17 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td>   </td>
-                                <td>   </td>
-                            </tr>
-                            <tr class="int">
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 18 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td>   </td>
-                                <td>   </td>
-                            </tr>
-                                
-
-                            <tr class="int">
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 18 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td>   </td>
-                                <td>   </td>
-                            </tr>
-
-                            <tr class="int">
-                                <td> 1 </td>
-                                <td> Fulao da Silva Sauro</td>
-                                <td> 18 </td>
-                                <td> InfoX </td>
-                                <td > Informática </td>
-                                <td>   </td>
-                                <td>   </td>
-                            </tr>
-                                
-
+                            {todosAlunos.map((info, linha) => 
+                                <tr className={linha % 2 === 0 ?`linha1` :`linha2`}>
+                                    <td> {info.id_matricula} </td>
+                                    <td title={info.nm_aluno}> {info.nm_aluno != null && info.nm_aluno.length >= 25
+                                                        ?info.nm_aluno.substr(0, 25) + "..."
+                                                        :info.nm_aluno
+                                    }</td>
+                                    <td> {info.nr_chamada} </td>
+                                    <td> {info.nm_curso} </td>
+                                    <td> {info.nm_turma} </td>
+                                    <td> <button onClick={() => alterarAluno(info)} style={{cursor: 'pointer'}}> <img src="/assets/svgs/editiButton.svg" alt="" /> </button> </td>
+                                    <td> <button onClick={() => remover(info)} style={{cursor: 'pointer'}}> <img src="/assets/svgs/deleteButton.svg" alt="" /> </button> </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
