@@ -9,7 +9,7 @@ export default function Header() {
     return (
         <HeaderRight>
             <div class="user-information-group">
-                   <div className=""> <img src="/assets/images/vanita.png" alt=""/>  <div class="divDentroIMG">3</div></div>
+                   <div className=""> <img src="/assets/images/oie.png" alt=""/>  <div class="divDentroIMG">3</div></div>
                     <div>Olá, <span>Lucas Bezerra Sampaio lindo maravilhoso ❤️❤️😍😍</span></div>
                 </div>
                 <div class="header-buttons">

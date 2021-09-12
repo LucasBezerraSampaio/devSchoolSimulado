@@ -6,6 +6,7 @@ const HeaderRight = styled.div`
     flex-direction: row;
 
     padding: 1em 2.4em;
+    width: auto;
     
   
 

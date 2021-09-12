@@ -5,7 +5,7 @@ const Home = styled.div`
 
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: auto;
     min-height: 100%;
 
    position: absolute;
@@ -28,7 +28,7 @@ const Home = styled.div`
         background-color: white;
         
         min-height: 100vh;
-        width: auto;
+        width: 74.2vw;
         
     
     }
@@ -47,7 +47,7 @@ const Home = styled.div`
         background-color: #F5F5F5;
 
         padding: 3em;
-        width: 100%;  
+        
         height: 100%;
     }
 

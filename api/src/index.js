@@ -20,6 +20,14 @@ app.get('/matricula', async (req, resp) => {
 app.post('/matricula', async (req, resp) => {
     try {
         let requerimento = req.body;
+        let condicao = await db.tb_matricula.findOne(
+            { where: {nm_turma},include: [[id_matricula]] }
+        )
+        
+        if (!condicao) 
+            resp.send({erro: 'Não pode ter dois alunos com o mesmo número'})
+    
+
         let cadastroALuno = await db.tb_matricula.create({
 
             nm_aluno: requerimento.nome,
