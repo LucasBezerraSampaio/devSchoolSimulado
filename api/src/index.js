@@ -20,13 +20,23 @@ app.get('/matricula', async (req, resp) => {
 app.post('/matricula', async (req, resp) => {
     try {
         let requerimento = req.body;
-        let condicao = await db.tb_matricula.findOne(
-            { where: {nm_turma},include: [[id_matricula]] }
-        )
-        
-        if (!condicao) 
-            resp.send({erro: 'Não pode ter dois alunos com o mesmo número'})
-    
+        let r = await db.tb_matricula.findOne({ where: { nr_chamada: requerimento.numero, nm_turma: requerimento.turma } });
+
+       
+
+        if (requerimento.nome === '')
+            return resp.send({ Status: `O campo do nome não pode ser nulo` });
+        if (requerimento.numero < 0)
+            return resp.send({ Status: `O campo do número não pode ser menor que 0` })
+        if (requerimento.curso === '')
+            return resp.send({ Status: `O campo do curso não pode ser nulo` });
+        if (requerimento.turma === '')
+            return resp.send({ Status: `O campo da turma não pode ser nulo` })
+        if (requerimento.numero === '')
+            return resp.send({Status: `O campo da chamada não pode ser nulo`})
+        if (r != null)
+            return resp.send({ Status: `Número já existente` });
+       
 
         let cadastroALuno = await db.tb_matricula.create({
 
@@ -36,7 +46,7 @@ app.post('/matricula', async (req, resp) => {
             nm_turma: requerimento.turma
 
         })
-        resp.send({status: "Post da matricula realizado com sucesso!"})
+        resp.send(cadastroALuno)
     } catch (error) {
         resp.send(toString(error))
     }
@@ -58,6 +68,22 @@ app.put('/matricula', async (req, resp) => {
     try {
         let requerimento = req.body;
         let id = req.query.idMatricula;
+       
+
+        if (requerimento.nome === '')
+            return resp.send({ Status: `O campo do nome não pode ser nulo` });
+        if (requerimento.numero < 0)
+            return resp.send({ Status: `O campo do número não pode ser menor que 0` })
+        if (requerimento.curso === '')
+            return resp.send({ Status: `O campo do curso não pode ser nulo` });
+        if (requerimento.turma === '')
+            return resp.send({ Status: `O campo da turma não pode ser nulo` })
+        if (requerimento.chamada === '')
+            return resp.send({Status: `O campo da chamada não pode ser nulo`})
+        if (requerimento.chamada < 0)
+            return resp.send({ Status: `Número da chamada não pode ser negativo` })
+        
+        
         let cadastroALuno = await db.tb_matricula.update({
 
             nm_aluno: requerimento.nome,

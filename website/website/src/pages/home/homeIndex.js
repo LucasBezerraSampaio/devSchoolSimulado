@@ -58,33 +58,24 @@ export default function HomePage() {
     }, [])
 
     const cadastrarAluno = async (info) => {
-
         
-
-        if (numeroChamada < 0)
-            return toast.error('Campo do número não pode ser menor que 0')
-        
-        
-        if (nomeAluno === '')
-            return toast.error('O campo do nome não pode ser nulo')
-        
-        if (turma === '')
-            return toast.error('O campo da turma não pode ser nulo')
-        
-        if (curso === '')
-            return toast.error('O campo do curso não pode ser nulo')
 
         if (alterando === 0) {
             let oi = await api.cadastrarAluno(nomeAluno, numeroChamada, curso, turma);
-            if (!verificarErro(oi))
-                return
+            if (oi.Status)
+                return toast.error(`${oi.Status}`)
+            if (oi.error)
+                return toast.error(`${oi.error}`)
             toast.success(`Aluno ${nomeAluno} cadastrado!`);
         } else {
            
             let r = await api.alterarInfo(alterando, nomeAluno, numeroChamada, curso, turma);
-            if (!verificarErro(r))
-                return
-            toast.success(`Aluno ${nomeAluno} alterado !`)
+           
+            if (r.Status)
+                return toast.error(`${r.Status}`)
+            if (r.error)
+                return toast.error(`${r.error}`)
+            toast.success(`Aluno ${nomeAluno} alterado com sucesso!`)
         }
 
         carregarCadastrado();
