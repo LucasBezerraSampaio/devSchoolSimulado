@@ -29,13 +29,7 @@ export default function HomePage() {
     const [todosAlunos, setTodosAlunos] = useState([]);
     const barraCarregamento = useRef(null);
 
-    const verificarErro = (resp) => {
-        if (!resp.situacao) 
-            return true;
-        toast.error(`${resp.situacao}`);
-        return false;
-        
-    }
+    
 
     const carregarCadastrado = async () => {
         barraCarregamento.current.continuousStart();
