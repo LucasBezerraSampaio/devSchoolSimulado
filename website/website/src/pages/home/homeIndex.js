@@ -62,6 +62,7 @@ export default function HomePage() {
 
         if (alterando === 0) {
             let oi = await api.cadastrarAluno(nomeAluno, numeroChamada, curso, turma);
+            console.log(oi);
             if (oi.Status)
                 return toast.error(`${oi.Status}`)
             if (oi.error)
@@ -70,6 +71,7 @@ export default function HomePage() {
         } else {
            
             let r = await api.alterarInfo(alterando, nomeAluno, numeroChamada, curso, turma);
+            console.log(r);
            
             if (r.Status)
                 return toast.error(`${r.Status}`)
@@ -93,6 +95,7 @@ export default function HomePage() {
                     label: 'sim',
                     onClick: async () => {
                         let r = await api.removerAluno(info.id_matricula);
+                        console.log(r);
                         toast.success(`Aluno ${info.nm_aluno} removido com sucesso!`)
                         carregarCadastrado();
                     }
